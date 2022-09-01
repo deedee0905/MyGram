@@ -67,5 +67,15 @@ public class UserRestController {
 	}
 	
 	
+	// 로그인 기능 수행 api
+	@PostMapping("/signin")
+	public Map<String, String> singin(
+			@RequestParam("loginId") String loginId
+			, @RequestParam("password") String password
+			, HttpServletRequest Request
+			){
+		
+	}
+	
 
 }

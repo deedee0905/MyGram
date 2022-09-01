@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.amita.mygramSNS.ex.common.EncryptUtils;
 import com.amita.mygramSNS.ex.user.dao.UserDAO;
+import com.amita.mygramSNS.ex.user.model.User;
 
 @Service
 public class UserBO {
@@ -33,4 +34,13 @@ public class UserBO {
 		
 	}
 
+	// 로그인 기능 수행 BO
+	public User getLogin(String loginId, String password) {
+		
+		String encryptPassword = EncryptUtils.md5(password);
+		
+		return userDAO.selectLoginInfo(loginId, encryptPassword);
+	}
+	
+	
 }
