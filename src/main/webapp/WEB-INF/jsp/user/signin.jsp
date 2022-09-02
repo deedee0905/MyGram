@@ -37,40 +37,69 @@
 
  
 
-    <div class="mt-5 d-flex justify-content-center">
+	    <div class="mt-5 d-flex justify-content-center">
+	
+	      <div class="box1 mr-3 ">
+	      	<img width=200 height=350 src="https://cdn.pixabay.com/photo/2016/02/07/14/45/smartphone-1184883_960_720.png">
+	      </div>
+	
+	      <div class="d-flex">
+	
+	        <div class="box2 border border-primary rounded p-2">
+	          <h1 class="mt-3 text-success text-center">MyGram</h1>
+	          <input type="text" placeholder="Username" class="mt-3 form-control" id="userIdInput"> <br>
+	          <input type="password" class="mt-1 form-control" id="passwordInput">
+	          <button class="mt-2 btn btn-primary btn-block" id="loginBtn">로그인</button>
+	
+	          <div class="mt-4 text-center">
+	            <label>계정이 없으신가요? <a href="http://localhost:8080/user/signup/view">회원가입</a></label>
+	          </div>
+	        </div>
+	
+	      </div>
 
-      <div class="box1 mr-3 ">
-      	<img width=200 height=350 src="https://cdn.pixabay.com/photo/2016/02/07/14/45/smartphone-1184883_960_720.png">
-      </div>
-
-      <div class="d-flex">
-
-        <div class="box2 border border-primary rounded p-2">
-          <h1 class="mt-3 text-success text-center">MyGram</h1>
-          <input type="text" placeholder="Username" class="mt-3 form-control" id="userIdInput"> <br>
-          <input type="password" class="mt-1 form-control" id="passwordInput">
-          <button class="mt-2 btn btn-primary btn-block">로그인</button>
-
-          <div class="mt-4 text-center">
-            <label>계정이 없으신가요? <a href="http://localhost:8080/user/signup/view">회원가입</a></label>
-          </div>
-        </div>
-
- 
-
- 
-
-      </div>
-
-    </div>
+    	</div>
+  	</div>
 
  
 
-  </div>
-
+ <script>
+ 	$(document).ready(function() {
+ 		
+ 		$("#loginBtn").on("click", function() {
+ 			
+ 			let loginId = $("#userIdInput").val();
+ 			let password = $("#passwordInput").val();
+ 			
+ 			if(loginId == ""){
+ 				alert("아이디를 입력하세요");
+ 				return;
+ 			}
+ 			
+ 			if(password == ""){
+ 				alert("비밀번호를 입력하세요");
+ 				return;
+ 			}
+ 			
+ 			$.ajax({
+ 				type: "post"
+ 				, url: "/user/signin"
+ 				, data: {"loginId":loginId, "password":password}
+ 				, success: function(data) {
+ 					location.href="/post/mainStream/view"
+ 				}
+ 				, error: function() {
+ 					alert("로그인 에러");
+ 				}
+ 				
+ 			});
+ 			
+ 		});
+ 		
+ 		
+ 	});
  
-
-  </div>
+ </script>
 	
 
 	

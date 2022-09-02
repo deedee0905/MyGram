@@ -3,6 +3,9 @@ package com.amita.mygramSNS.ex.user;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.amita.mygramSNS.ex.user.bo.UserBO;
+import com.amita.mygramSNS.ex.user.model.User;
 
 @RestController
 @RequestMapping("/user")
@@ -72,8 +76,23 @@ public class UserRestController {
 	public Map<String, String> singin(
 			@RequestParam("loginId") String loginId
 			, @RequestParam("password") String password
-			, HttpServletRequest Request
+			, HttpServletRequest request
 			){
+		
+		User user = userBO.getLogin(loginId, password);
+		
+		Map<String, String> result = new HashMap<>();
+		
+		if(user != null) { // 성공
+			result.put("result", "success");
+			HttpSession session = request.getSession();
+			session.setAttribute("userId", user.getId());
+			session.setAttribute("userName", user.getName());
+		} else {
+			result.put("result", "fail");
+		}
+		
+		return result;
 		
 	}
 	
