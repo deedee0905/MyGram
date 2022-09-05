@@ -48,8 +48,8 @@
 		        <button type="button" class="btn btn-secondary ml-2" id="checkBtn">중복확인</button>
 			</div>
 			<div class="mb-2">
-				<label id="duplicateId" class="text-danger">중복된 ID입니다.</label>
-			    <label id="availableId" class="text-primary">사용 가능한 ID입니다.</label>
+				<label id="duplicateId" class="text-danger small">중복된 ID입니다.</label>
+			    <label id="availableId" class="text-primary small">사용 가능한 ID입니다.</label>
 			</div>
 			
 	        <input type="password" class=" form-control" id="passwordInput"> <br>
@@ -107,7 +107,7 @@
     					if(data.is_duplicate){
     						$("#duplicateId").show();
 							$("#availableId").hide();
-							isCheck = true;
+							isCheck = false;
     					} else {
     						$("#availableId").show();
 							$("#duplicateId").hide();
@@ -135,6 +135,16 @@
     				alert("아이디를 입력하세요.");
     				return;
     			}
+    			// 중복체크 여부 확인
+    			if(isCheck == false){
+    				alert("아이디 중복검사를 실행해주세요.");
+    				return;
+    			}
+    			// 아이디 중복확인 ()
+    			if(isDuplicate == true){
+    				alert("아이디가 중복되었습니다. 재확인 해주세요.");
+    				return;
+    			}
     			
     			if(password == ""){
     				alert("비밀번호를 입력하세요.");
@@ -155,8 +165,7 @@
     				alert("이메일을 입력하세요.");
     				return;
     			}
-    			
-    			
+    		
     			$.ajax({
     				type: "post"
     				, url: "/user/signup"

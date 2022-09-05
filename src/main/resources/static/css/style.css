@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+ header {
+      height: 80px;
+    }
+
+    
+    
+    .main-box {
+    	width: 400px;
+    	height: 500px;
+    }
+
+    .like {
+      float: right;
+    }
+    
+    .search-input {
+    
+    	height: 30px;
+    }
+
+    footer {
+      height: 60px;
+    }

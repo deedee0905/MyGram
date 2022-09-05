@@ -86,6 +86,8 @@ public class UserRestController {
 		if(user != null) { // 성공
 			result.put("result", "success");
 			HttpSession session = request.getSession();
+			
+			// 로그인이 된 상태에서 사용자의 정보를 얻어오는 코드
 			session.setAttribute("userId", user.getId());
 			session.setAttribute("userName", user.getName());
 		} else {

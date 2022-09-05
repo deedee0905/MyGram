@@ -46,7 +46,7 @@
 	      <div class="d-flex">
 	
 	        <div class="box2 border border-primary rounded p-2">
-	          <h1 class="mt-3 text-success text-center">MyGram</h1>
+	          <h1 class="mt-3 text-info text-center">MyGram</h1>
 	          <input type="text" placeholder="Username" class="mt-3 form-control" id="userIdInput"> <br>
 	          <input type="password" class="mt-1 form-control" id="passwordInput">
 	          <button class="mt-2 btn btn-primary btn-block" id="loginBtn">로그인</button>
