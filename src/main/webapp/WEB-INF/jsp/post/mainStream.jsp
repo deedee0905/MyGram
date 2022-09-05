@@ -72,7 +72,7 @@
 	
 	        </div>
 	        
-	        <div class="main-box d-flex">
+	        <div class="main-box d-flex" >
 	        	<div>
 			      <button type="button" class="mt-3 ml-5 btn btn-primary btn-sm">New post</button>  
 			    </div>
