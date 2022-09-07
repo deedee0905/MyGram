@@ -17,6 +17,7 @@
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
 
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 	<link rel="stylesheet" href="/static/css/style.css" type="text/css">
 
 <meta charset="UTF-8">
@@ -33,7 +34,8 @@
 			<div class="newpost">
 				<textarea id="contentInput" class="form-control mt-3" rows="10"></textarea>
 				
-				<input type="file" class="mt-3" id="fileInput">
+				<a href="#" id="imageIcon"><i class=" bi bi-image"></i></a>
+				<input type="file" class="mt-3 d-none" id="fileInput">
 				
 				<div class="d-flex justify-content-between mt-3 mb-3">
 					<a href="/post/mainStream/view" type="button" class="btn btn-info">목록</a>
@@ -51,6 +53,12 @@
 	
 	<script>
 		$(document).ready(function() {
+			
+			$("#imageIcon").on("click",function() {
+				// 파일 인풋을 클릭한 효과
+				$("#fileInput").click();
+
+			});
 			
 			$("#saveBtn").on("click", function() {
 				

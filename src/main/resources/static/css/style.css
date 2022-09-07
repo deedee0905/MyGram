@@ -32,6 +32,14 @@
     
     /* 기본 프로젝트 css */
     
+	section {
+	height:700px;
+	}
+    
+    #fileIcon {
+    width:30px;
+    height:30px;
+    }
     .content-box {
 	width: 600px;
 }
