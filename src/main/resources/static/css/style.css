@@ -4,8 +4,6 @@
       height: 80px;
     }
 
-    
-    
     .main-box {
     	width: 400px;
     	height: 500px;
@@ -23,3 +21,41 @@
     footer {
       height: 60px;
     }
+    
+    /* Newpost jsp */
+    
+    .newpost {
+    	width: 500px;
+    }
+    
+    
+    
+    /* 기본 프로젝트 css */
+    
+    .content-box {
+	width: 600px;
+}
+
+.bar {
+	height:25px;
+	background-color:#dddddd;
+}
+
+.full-heart{
+	display : none;
+}
+.comment-bar {
+	font-size:13px;
+}
+
+.comment {
+	font-size:13px;
+}
+
+.contents > .join-box {
+	width:300px;
+}
+
+.new-post-area{
+	width:300px;
+}

@@ -23,7 +23,9 @@ public class UserController {
 			return "user/signup";
 		}
 		
-	//GetMapping("/signout")
+		
+	// 로그아웃 기능
+		@GetMapping("/signout")
 		public String signout(HttpServletRequest request) {
 			
 			HttpSession session = request.getSession();

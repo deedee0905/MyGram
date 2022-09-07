@@ -47,9 +47,11 @@
 	
 	        <div class="box2 border border-primary rounded p-2">
 	          <h1 class="mt-3 text-info text-center">MyGram</h1>
-	          <input type="text" placeholder="Username" class="mt-3 form-control" id="userIdInput"> <br>
-	          <input type="password" class="mt-1 form-control" id="passwordInput">
-	          <button class="mt-2 btn btn-primary btn-block" id="loginBtn">로그인</button>
+	          <form id="loginForm">
+		          <input type="text" placeholder="Username" class="mt-3 form-control" id="userIdInput"> <br>
+		          <input type="password" class="mt-1 form-control" id="passwordInput">
+		          <button type="submit" class="mt-2 btn btn-primary btn-block" id="loginBtn">로그인</button>
+	          </form>
 	
 	          <div class="mt-4 text-center">
 	            <label>계정이 없으신가요? <a href="http://localhost:8080/user/signup/view">회원가입</a></label>
@@ -66,7 +68,9 @@
  <script>
  	$(document).ready(function() {
  		
- 		$("#loginBtn").on("click", function() {
+ 		$("#loginForm").on("submit", function(e) {
+ 			
+ 			e.preventDefault();
  			
  			let loginId = $("#userIdInput").val();
  			let password = $("#passwordInput").val();
@@ -86,7 +90,13 @@
  				, url: "/user/signin"
  				, data: {"loginId":loginId, "password":password}
  				, success: function(data) {
- 					location.href="/post/mainStream/view"
+ 					
+ 					if(data.result == "success"){
+ 						location.href="/post/mainStream/view"
+ 					} else {
+ 						alert("아이디/비밀번호를 확인하세요");
+ 					}
+ 					
  				}
  				, error: function() {
  					alert("로그인 에러");

@@ -38,7 +38,7 @@
 	      <div class="main-box">
 	        <input type="checkbox"> <label>북마크</label> <br>
 	        <div>
-	          <img width=300 height=200 src="https://cdn.pixabay.com/photo/2016/07/04/07/58/fireworks-1496130_960_720.jpg">
+	          <img class="img-fluid" src="https://cdn.pixabay.com/photo/2016/07/04/07/58/fireworks-1496130_960_720.jpg">
 	        </div>
 	        <div class="mt-1 like">
 	          <input type="checkbox">
@@ -74,7 +74,7 @@
 	        
 	        <div class="main-box d-flex" >
 	        	<div>
-			      <button type="button" class="mt-3 ml-5 btn btn-primary btn-sm">New post</button>  
+			      <a type="button" href="/post/create/view" class="mt-3 ml-5 btn btn-primary btn-sm">New post</a>  
 			    </div>
 			
 			    <div class="input-group-prepend search-input mt-3 ml-2">
