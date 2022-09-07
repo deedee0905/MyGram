@@ -32,9 +32,7 @@
     
     /* 기본 프로젝트 css */
     
-	section {
-	height:700px;
-	}
+	
     
     .content-box {
 	width: 600px;
@@ -45,9 +43,6 @@
 	background-color:#dddddd;
 }
 
-.full-heart{
-	display : none;
-}
 .comment-bar {
 	font-size:13px;
 }
