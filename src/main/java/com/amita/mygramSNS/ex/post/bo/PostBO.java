@@ -1,11 +1,14 @@
 package com.amita.mygramSNS.ex.post.bo;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.amita.mygramSNS.ex.common.FileManagerService;
 import com.amita.mygramSNS.ex.post.dao.PostDAO;
+import com.amita.mygramSNS.ex.post.model.Post;
 
 @Service
 public class PostBO {
@@ -24,6 +27,10 @@ public class PostBO {
 			}
 		}
 		return postDAO.insertPost(userId, content, imagePath);
+	}
+	
+	public List<Post> getPostList(int userId){
+		return postDAO.selectPostList(userId);
 	}
 
 }

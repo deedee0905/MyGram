@@ -16,7 +16,7 @@
 		      </div>
 		
 		      <div class="header-box">
-		        <h1 class="text-primary mt-3 mr-5">MyGram</h1>
+		        <a href="/post/mainStream/view"><h1 class="text-primary mt-3 mr-5">MyGram</h1></a>
 		      </div>
 		
 		

@@ -34,11 +34,14 @@
 
     <section>
 		<section class="d-flex justify-content-center mt-2 mb-5">
-			<div class="main-box"></div>
+	
+		
+		  <div class="main-box"></div>
+		  <c:forEach var="post" items="${postList }">
 	      <div class="main-box">
 	        <input type="checkbox"> <label>북마크</label> <br>
 	        <div>
-	          <img class="img-fluid" src="https://cdn.pixabay.com/photo/2016/07/04/07/58/fireworks-1496130_960_720.jpg">
+	          <img class="w-100" src="${post.imagePath }">
 	        </div>
 	        <div class="mt-1 like">
 	          <input type="checkbox">
@@ -47,17 +50,18 @@
 	
 	        <div class="mt-4">
 	          <div>
-	            <label class="font-weight-bold">모코코</label> </div>
-	
-	            <div>
-	              <p>올 여름휴가는 마리나 베이 샌즈</p>
-	            </div>
+	            <label class="font-weight-bold">${userName }</label> 
 	          </div>
 	
 	          <div>
+	            <p>${post.content }</p>
+	          </div>
+	        </div>
+	
+	        <div>
 	            <label class="font-weight-bold">친구친구</label>
 	            <label class="ml-1">부럽당</label>
-	          </div>
+	        </div>
 	
 	          <div>
 	            <div class="font-weight-bold">덧글입력</div>
@@ -70,9 +74,11 @@
 	            
 	          </div>
 	
-	        </div>
+	      </div>
+	      <br>
+	      </c:forEach>
 	        
-	        <div class="main-box d-flex" >
+	      <div class="main-box d-flex" >
 	        	<div>
 			      <a type="button" href="/post/create/view" class="mt-3 ml-5 btn btn-primary btn-sm">New post</a>  
 			    </div>
@@ -81,7 +87,7 @@
 			      	<span class="input-group-text">🔍</span>
 			      	<input type="text" class="form-control col-8">
 			    </div>
-	        </div>
+	      </div>
 	        
 		</section>
 

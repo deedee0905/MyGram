@@ -89,7 +89,7 @@ public class UserRestController {
 			
 			// 로그인이 된 상태에서 사용자의 정보를 얻어오는 코드
 			session.setAttribute("userId", user.getId());
-			session.setAttribute("userName", user.getName());
+			session.setAttribute("userName", user.getName()); 
 		} else {
 			result.put("result", "fail");
 		}

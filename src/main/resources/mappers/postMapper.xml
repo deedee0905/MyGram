@@ -27,6 +27,20 @@
 		)
 
 	</insert>
+	
+	<select id="selectPostList" parameterType="int" resultType="com.amita.mygramSNS.ex.post.model.Post">
+		SELECT
+			`id`
+			,`userId`
+			,`content`
+			,`imagePath`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`post`
+		WHERE
+			`userId` = #{userId}
+	</select>
 
 </mapper>
 

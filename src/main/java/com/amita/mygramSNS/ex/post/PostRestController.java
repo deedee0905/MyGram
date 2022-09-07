@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,6 +33,10 @@ public class PostRestController {
 		int userId = (Integer)session.getAttribute("userId");
 		
 		int count = postBO.addPost(userId, content, file);
+		
+		// 로그인 된 상태에서 db에 저장된 값 가져오기
+		
+		
 		
 		Map<String, String> result = new HashMap<>();
 		
