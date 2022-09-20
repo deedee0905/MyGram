@@ -45,7 +45,7 @@
 		  	<!-- 두번째 div 상자~ -->
 		  	
 	     	<div class="main-box">
-	     	<c:forEach var="post" items="${postList }">
+	     	<c:forEach var="postDetail" items="${postList }">
 	     		<div class="border rounded p-2 mt-1">
 	        	<div class="mt-1">
 	        		<a href="#"><i id="bookmark-checked" class="d-none bi bi-bookmark-star-fill"></i></a>
@@ -53,21 +53,21 @@
 	        		<label>북마크</label> <br>
 	        	</div>
 	        	<div>
-	          		<img class="w-100" src="${post.imagePath }">
+	          		<img class="w-100" src="${postDetail.post.imagePath }">
 	        	</div>
 		        <div class="mt-1 like">
-		        	<a href="#"><i class="d-none bi bi-suit-heart-fill text-danger fill-heart"></i></a>
-		        	<a href="#"><i class="bi bi-suit-heart text-danger blank-heart"></i></a>
+		        	<a href="#"><i class="d-none bi bi-suit-heart-fill text-danger fill-heart" data-post-id="${postDetail.post.id}"></i></a>
+		        	<a href="#"><i class="bi bi-suit-heart text-danger blank-heart" data-post-id="${postDetail.post.id}"></i></a>
 		        	<label>좋아요</label> <br>
 		        </div>
 	
 	            <div class="mt-4">
 	            	<div>
-	            	<label class="font-weight-bold">${userName }</label> 
+	            	<label class="font-weight-bold">${postDetail.user.loginId }</label> 
 	          		</div>
 	
 		          	<div>
-		            <p>${post.content }</p>
+		            <p>${postDetail.post.content}</p>
 		            </div>
 	        	</div>
 	
@@ -126,10 +126,30 @@
   	$(document).ready(function() {
   		
   		// 빈 하트를 누르면 꽉찬 하트로 바꾸기
-  		$(".blank-heart").on("click", function() {
+  		$(".blank-heart").on("click", function(e) {
+  			e.preventDefault();
+  			
+  			var postId = $(this).data("post-id");
   			
   			$(".blank-heart").addClass("d-none");
   			$(".fill-heart").removeClass("d-none");
+  			
+  			$.ajax({
+  				type:"get"
+  				, url:"/post/like/insert"
+  				, data: {"postId":postId}
+  				, success:function(data){
+  					if(data.result == "success"){
+  						location.reload();
+  					} else {
+  						alert("좋아요 체크 실패");
+  					}
+  				}
+  				, error:function(){
+  					alert("좋아요 체크 에러");
+  				}
+  				
+  			});
 
   		});
   		

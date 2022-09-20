@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -51,5 +51,29 @@ public class PostRestController {
 	
 		return result;
 	}
+	
+	// 좋아요 insert API
+	@GetMapping("/like/insert")
+	public Map<String, String> addLike(
+			HttpServletRequest request
+			,@RequestParam("postId") int postId
+			  ){
+		
+		HttpSession session = request.getSession();
+		int userId = (Integer)session.getAttribute("userId");
+		
+		Map<String, String> map = new HashMap<>();
+		
+		int count = postBO.checkLike(postId, userId);
+		
+		if(count == 1) {
+			map.put("result", "success");
+		} else {
+			map.put("result", "fail");
+		}
+		
+		return map;
+	}
+	
 
 }

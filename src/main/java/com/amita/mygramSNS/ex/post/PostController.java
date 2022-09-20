@@ -2,9 +2,6 @@ package com.amita.mygramSNS.ex.post;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.amita.mygramSNS.ex.post.bo.PostBO;
-import com.amita.mygramSNS.ex.post.model.Post;
+import com.amita.mygramSNS.ex.post.model.PostDetail;
 
 @Controller
 @RequestMapping("/post")
@@ -23,12 +20,10 @@ public class PostController {
 	
 	//메인 페이지 view (내 개인 프로젝트)
 	@GetMapping("/mainStream/view")
-	public String mainView(HttpServletRequest request, Model model) {
+	public String mainView( Model model) {
 		
-		HttpSession session = request.getSession();
-		int userId = (Integer)session.getAttribute("userId");
 		
-		List<Post> postList = postBO.getPostList(userId);
+		List<PostDetail> postList = postBO.getPostList();
 				
 		model.addAttribute("postList", postList);
 		

@@ -1,5 +1,6 @@
 package com.amita.mygramSNS.ex.post.bo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +40,11 @@ public class PostBO {
 		
 		// 게시글 하나당 작성자 정보를 조합하는 과정
 		List<Post> postList = postDAO.selectPostList();
+		List<PostDetail> postDetailList = new ArrayList<>();
+		
 		
 		for(Post post : postList) {
+			
 			int userId = post.getUserId();
 			User user = userBO.getUserById(userId);
 			
@@ -48,10 +52,15 @@ public class PostBO {
 			postDetail.setPost(post);
 			postDetail.setUser(user);
 			
+			postDetailList.add(postDetail);
 		}
 		
-		
+		return postDetailList;
+	}
 	
+	public int checkLike(int userId, int postId) {
+		
+		return postDAO.insertLike(userId, postId);
 	}
 
 }
