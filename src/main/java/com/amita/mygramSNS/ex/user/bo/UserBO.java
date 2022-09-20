@@ -42,5 +42,10 @@ public class UserBO {
 		return userDAO.selectLoginInfo(loginId, encryptPassword);
 	}
 	
+	// user 테이블의 id를 통해서 사용자 정보를 얻어오는 기능
+	public User getUserById(int id) {
+		return userDAO.selectUserById(id);
+	}
+	
 	
 }

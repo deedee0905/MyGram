@@ -56,8 +56,8 @@
 	          		<img class="w-100" src="${post.imagePath }">
 	        	</div>
 		        <div class="mt-1 like">
-		        	<a href="#"><i id="fill-heart" class="d-none bi bi-suit-heart-fill text-danger"></i></a>
-		        	<a href="#"><i id="blank-heart" class="bi bi-suit-heart text-danger"></i></a>
+		        	<a href="#"><i class="d-none bi bi-suit-heart-fill text-danger fill-heart"></i></a>
+		        	<a href="#"><i class="bi bi-suit-heart text-danger blank-heart"></i></a>
 		        	<label>좋아요</label> <br>
 		        </div>
 	
@@ -126,18 +126,18 @@
   	$(document).ready(function() {
   		
   		// 빈 하트를 누르면 꽉찬 하트로 바꾸기
-  		$("#blank-heart").on("click", function() {
+  		$(".blank-heart").on("click", function() {
   			
-  			$("#blank-heart").addClass("d-none");
-  			$("#fill-heart").removeClass("d-none");
+  			$(".blank-heart").addClass("d-none");
+  			$(".fill-heart").removeClass("d-none");
 
   		});
   		
   		// 꽉찬 하트를 누르면 빈 하트로 바꾸기
-		$("#fill-heart").on("click", function() {
+		$(".fill-heart").on("click", function() {
   			
-  			$("#fill-heart").addClass("d-none");
-  			$("#blank-heart").removeClass("d-none");
+  			$(".fill-heart").addClass("d-none");
+  			$(".blank-heart").removeClass("d-none");
 
   		});
   	

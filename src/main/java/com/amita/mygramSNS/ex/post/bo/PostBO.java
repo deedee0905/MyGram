@@ -9,12 +9,18 @@ import org.springframework.web.multipart.MultipartFile;
 import com.amita.mygramSNS.ex.common.FileManagerService;
 import com.amita.mygramSNS.ex.post.dao.PostDAO;
 import com.amita.mygramSNS.ex.post.model.Post;
+import com.amita.mygramSNS.ex.post.model.PostDetail;
+import com.amita.mygramSNS.ex.user.bo.UserBO;
+import com.amita.mygramSNS.ex.user.model.User;
 
 @Service
 public class PostBO {
 	
 	@Autowired
 	private PostDAO postDAO;
+	
+	@Autowired
+	private UserBO userBO;
 	
 	public int addPost(int userId, String content, MultipartFile file) {
 		
@@ -29,8 +35,23 @@ public class PostBO {
 		return postDAO.insertPost(userId, content, imagePath);
 	}
 	
-	public List<Post> getPostList(int userId){
-		return postDAO.selectPostList(userId);
+	public List<PostDetail> getPostList(){
+		
+		// 게시글 하나당 작성자 정보를 조합하는 과정
+		List<Post> postList = postDAO.selectPostList();
+		
+		for(Post post : postList) {
+			int userId = post.getUserId();
+			User user = userBO.getUserById(userId);
+			
+			PostDetail postDetail = new PostDetail();
+			postDetail.setPost(post);
+			postDetail.setUser(user);
+			
+		}
+		
+		
+	
 	}
 
 }

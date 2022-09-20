@@ -23,7 +23,7 @@ public class PostRestController {
 	@Autowired
 	private PostBO postBO;
 	
-	@PostMapping("create/posting")
+	@PostMapping("/create/posting")
 	public Map<String, String> newpost(
 				@RequestParam("content") String content
 				, @RequestParam("file") MultipartFile file
