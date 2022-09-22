@@ -53,11 +53,20 @@
 		VALUES
 		(
 			#{userId}
-			#{postId}
+			,#{postId}
 			,now()
 		)
 	
 	</insert>
+	
+	<delete id="deleteLike" parameterType="map">
+		DELETE FROM
+			`like`
+		WHERE
+			`userId` = #{userId}
+			, `postId` = #{postId}
+	
+	</delete>
 
 </mapper>
 

@@ -79,9 +79,9 @@
 	            <div>
 	              <div class="font-weight-bold">덧글입력</div>
 	              <div class="input-group mt-2">
-				    <input type="text" class="form-control" placeholder="내용을 입력해주세요.">
+				    <input type="text" class="form-control" placeholder="내용을 입력해주세요." id="commentInput${postDetail.post.id }">
 				    <div class="input-group-append">
-				      <button class="btn btn-info" type="button">입력</button>
+				      <button class="btn btn-info comment-btn" type="button" data-post-id="${postDetail.post.id }">입력</button>
 				    </div>
 				  </div>	
 	            </div>
@@ -125,14 +125,42 @@
   <script>
   	$(document).ready(function() {
   		
+  		// 덧글 입력
+  		$(".comment-btn").on("click", function(e) {
+  			e.preventDefault();
+  			
+  			let postId = $(this).data("post-id");
+  			let comment = $("#commentInput" + postId).val();
+  			
+  			$.ajax({
+  				type:"post"
+  				, url:"/post/comment/insert"
+  				, data: {"postId":postId , "text":comment}
+  				, success: function(data) {
+  					
+  					if(data.result == "success"){
+  						location.reload();
+  					} else {
+  						alert("댓글입력 실패");
+  					}
+  					
+  				}
+  				, error: function() {
+  					alert("덧글입력 에러")
+  				}
+  			});
+  			
+  		});
+  		
+  		
   		// 빈 하트를 누르면 꽉찬 하트로 바꾸기
   		$(".blank-heart").on("click", function(e) {
   			e.preventDefault();
   			
-  			var postId = $(this).data("post-id");
+  			let postId = $(this).data("post-id");
   			
   			$(".blank-heart").addClass("d-none");
-  			$(".fill-heart").removeClass("d-none");
+	  		$(".fill-heart").removeClass("d-none");
   			
   			$.ajax({
   				type:"get"

@@ -63,4 +63,8 @@ public class PostBO {
 		return postDAO.insertLike(userId, postId);
 	}
 
+	public int uncheckLike(int userId, int postId) {
+		return postDAO.deleteLike(userId, postId);
+	}
+	
 }

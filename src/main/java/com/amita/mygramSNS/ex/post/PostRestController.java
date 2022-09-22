@@ -75,5 +75,26 @@ public class PostRestController {
 		return map;
 	}
 	
+	// 좋아요 delete API
+	@GetMapping("/like/delete")
+	public Map<String, String> removeLike(
+			HttpServletRequest request
+			,@RequestParam("postId") int postId){
+		
+		HttpSession session = request.getSession();
+		int userId = (Integer)session.getAttribute("userId");
+		
+		Map<String, String> map = new HashMap<>();
+		int count = postBO.uncheckLike(userId, postId);
+		
+		if(count == 1) {
+			map.put("result", "success");
+		} else {
+			map.put("result", "fail");
+		}
+				
+		return map;
+	}
+	
 
 }
