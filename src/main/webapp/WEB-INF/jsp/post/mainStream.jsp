@@ -159,9 +159,6 @@
   			
   			let postId = $(this).data("post-id");
   			
-  			$(".blank-heart").addClass("d-none");
-	  		$(".fill-heart").removeClass("d-none");
-  			
   			$.ajax({
   				type:"get"
   				, url:"/post/like/insert"
@@ -182,12 +179,34 @@
   		});
   		
   		// 꽉찬 하트를 누르면 빈 하트로 바꾸기
-		$(".fill-heart").on("click", function() {
+		$(".fill-heart").on("click", function(e) {
+  			e.preventDefualt();
   			
-  			$(".fill-heart").addClass("d-none");
-  			$(".blank-heart").removeClass("d-none");
+  			let postId = $(this).data("post-id");
+			
+  			$.ajax({
+  				type:"get"
+  				, url:"/post/like/delete"
+  				, data: {"postId":postId}
+  				, success: function(data){
+  					
+  					if(data.result == "success"){
+  						location.reload();
+  					} else {
+  						alert("좋아요 해제 실패");
+  					}
+  					
+  				}
+  				, error: function(){
+  					alert("좋아요 해제 에러");
+  				}
+  			});
+  			
+  			
 
   		});
+  		
+  	
   	
   		// 빈 북마크 아이콘을 누르면 체크된 북마크 아이콘으로 바꾸기
 		$("#bookmark-blank").on("click", function() {
