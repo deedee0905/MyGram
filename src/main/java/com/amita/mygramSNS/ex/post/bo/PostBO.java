@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.amita.mygramSNS.ex.common.FileManagerService;
 import com.amita.mygramSNS.ex.post.comment.bo.CommentBO;
-import com.amita.mygramSNS.ex.post.comment.model.Comment;
+import com.amita.mygramSNS.ex.post.comment.model.CommentDetail;
 import com.amita.mygramSNS.ex.post.dao.PostDAO;
 import com.amita.mygramSNS.ex.post.like.bo.LikeBO;
 import com.amita.mygramSNS.ex.post.model.Post;
@@ -62,7 +62,7 @@ public class PostBO {
 			boolean isLike = likeBO.isLike(loginUserId, post.getId());
 			
 			
-			List<Comment> commentList = commentBO.getCommentList(post.getId());
+			List<CommentDetail> commentList = commentBO.getCommentList(post.getId());
 			
 			PostDetail postDetail = new PostDetail();
 			
@@ -71,6 +71,7 @@ public class PostBO {
 			postDetail.setCountLike(likeCount);
 			postDetail.setLike(isLike);
 			postDetail.setCommentList(commentList);
+			
 			postDetailList.add(postDetail);
 		}
 		

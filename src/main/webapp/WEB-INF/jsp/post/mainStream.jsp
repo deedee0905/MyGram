@@ -48,19 +48,27 @@
 	     	<c:forEach var="postDetail" items="${postList }">
 	     		<div class="border rounded p-2 mt-1">
 	        	<div class="mt-1">
-	        		<a href="#"><i id="bookmark-checked" class="d-none bi bi-bookmark-star-fill"></i></a>
-	        		<a href="#"><i id="bookmark-blank" class="bi bi-bookmark-star"></i></a>
-	        		<label>북마크</label> <br>
+	        		<div class="d-flex justify-content-between">
+		        		<div>
+			        		<a href="#"><i id="bookmark-checked" class="d-none bi bi-bookmark-star-fill"></i></a>
+			        		<a href="#"><i id="bookmark-blank" class="bi bi-bookmark-star"></i></a>
+			        		<label>북마크</label>
+		        		</div>
+		        		<div>
+		        			<a href="#" data-toggle="modal" data-target="#moreModal"><i class="bi bi-three-dots"></i></a>
+		        		</div>
+	        		</div>
 	        	</div>
 	        	<div>
 	          		<img class="w-100" src="${postDetail.post.imagePath }">
 	        	</div>
 	        	
+	        	
 	        	<div class="mt-1 like">
 		        	<c:choose> 
 		        		<%-- 로그인한 사용자 좋아요한 게시물 --%>
 		        		<c:when test="${postDetail.like }">
-		        			<a href="#"><i class=" bi bi-suit-heart-fill text-danger fill-heart"></i></a>
+		        			<i class=" bi bi-suit-heart-fill text-danger fill-heart"></i>
 		        		</c:when>
 		        		
 		        		<%-- 로그인한 사용자가 좋아요를 하지 않은 게시물 --%>
@@ -79,18 +87,18 @@
 	
 	            <div class="mt-4">
 	            	<div>
-	            	<label class="font-weight-bold">${postDetail.user.loginId }</label> 
+	            		<label class="font-weight-bold">${postDetail.user.loginId }</label> 
 	          		</div>
 	
 		          	<div>
-		            <p>${postDetail.post.content}</p>
+		            	<p>${postDetail.post.content}</p>
 		            </div>
 	        	</div>
 				
-				<c:forEach var="comment" items="${postDetail.commentList }">
+				<c:forEach var="commentDetail" items="${postDetail.commentList }">
 		        <div>
-		            <label class="font-weight-bold"></label>
-		            <label class="ml-1">${comment.comment }</label>
+		            <label class="font-weight-bold">${commentDetail.user.loginId }</label>
+		            <label class="ml-1">${commentDetail.comment.comment }</label>
 		        </div>
 				</c:forEach>
 				
@@ -123,8 +131,26 @@
 			      	<input type="text" class="form-control col-8">
 			    </div>
 			</div>
+			
+			<div>
+			
+
+<!-- Modal -->
+<div class="modal fade" id="moreModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+ 
+      <div class="modal-body text-center">
+        삭제하기
+      </div>
+      
+    </div>
+  </div>
+</div>
+			</div>
 	      </div>
 	      <!-- ~세번째 div 상자 --> 
+	      
 	      
 		</div>
 
@@ -179,20 +205,22 @@
   			
   			$.ajax({
   				type:"get"
-  				, url:"/post/like/insert"
+  				, url: "/post/like/insert"
   				, data: {"postId":postId}
   				, success:function(data){
   					if(data.result == "success"){
   						location.reload();
   					} else {
-  						alert("좋아요 체크 실패");
+  						alert("좋아요 실패");
   					}
   				}
   				, error:function(){
-  					alert("좋아요 체크 에러");
+  					alert("좋아요 에러");
   				}
-  				
   			});
+  			
+  				
+  			
 
   		});
   		

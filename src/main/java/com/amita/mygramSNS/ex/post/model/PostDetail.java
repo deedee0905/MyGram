@@ -3,6 +3,7 @@ package com.amita.mygramSNS.ex.post.model;
 import java.util.List;
 
 import com.amita.mygramSNS.ex.post.comment.model.Comment;
+import com.amita.mygramSNS.ex.post.comment.model.CommentDetail;
 import com.amita.mygramSNS.ex.user.model.User;
 
 public class PostDetail {
@@ -11,7 +12,7 @@ public class PostDetail {
 	private User user;
 	private int countLike;
 	private boolean isLike;
-	private List<Comment> commentList;
+	private List<CommentDetail> commentList;
 	
 	public boolean isLike() {
 		return isLike;
@@ -21,11 +22,11 @@ public class PostDetail {
 		this.isLike = isLike;
 	}
 
-	public List<Comment> getCommentList() {
+	public List<CommentDetail> getCommentList() {
 		return commentList;
 	}
 
-	public void setCommentList(List<Comment> commentList) {
+	public void setCommentList(List<CommentDetail> commentList) {
 		this.commentList = commentList;
 	}
 
