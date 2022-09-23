@@ -26,6 +26,21 @@
 		)
 		
 	</insert>
+	
+	<select id="selectCommentList" resultType="com.amita.mygramSNS.ex.post.comment.model.Comment">
+		SELECT
+			`id`
+			,`userId`
+			,`postId`
+			,`comment`
+			,`createdAt`
+			,`updatedAt`
+		From
+			`comment`
+		WHERE
+			`postId` = #{postId}
+			
+	</select>
 
 
 </mapper>

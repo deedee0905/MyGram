@@ -42,31 +42,8 @@
 			`id` DESC
 	</select>
 	
-	<insert id="insertLike" parameterType="map">
-		INSERT INTO
-			`like`
-		(
-			`userId`
-			,`postId`
-			,`createdAt`
-		)
-		VALUES
-		(
-			#{userId}
-			,#{postId}
-			,now()
-		)
 	
-	</insert>
 	
-	<delete id="deleteLike" parameterType="map">
-		DELETE FROM
-			`like`
-		WHERE
-			`userId` = #{userId}
-			, `postId` = #{postId}
-	
-	</delete>
 
 </mapper>
 

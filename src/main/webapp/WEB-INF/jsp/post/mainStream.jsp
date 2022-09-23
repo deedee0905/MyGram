@@ -55,11 +55,27 @@
 	        	<div>
 	          		<img class="w-100" src="${postDetail.post.imagePath }">
 	        	</div>
-		        <div class="mt-1 like">
-		        	<a href="#"><i class="d-none bi bi-suit-heart-fill text-danger fill-heart" data-post-id="${postDetail.post.id}"></i></a>
-		        	<a href="#"><i class="bi bi-suit-heart text-danger blank-heart" data-post-id="${postDetail.post.id}"></i></a>
-		        	<label>좋아요</label> <br>
-		        </div>
+	        	
+	        	<div class="mt-1 like">
+		        	<c:choose> 
+		        		<%-- 로그인한 사용자 좋아요한 게시물 --%>
+		        		<c:when test="${postDetail.like }">
+		        			<a href="#"><i class=" bi bi-suit-heart-fill text-danger fill-heart"></i></a>
+		        		</c:when>
+		        		
+		        		<%-- 로그인한 사용자가 좋아요를 하지 않은 게시물 --%>
+		        		<c:otherwise>
+		        			<a href="#" class="like-btn" data-post-id="${postDetail.post.id}"><span><i class="bi bi-suit-heart text-danger" ></i></span></a>
+		        		</c:otherwise>
+		        	</c:choose>
+		        	<label>좋아요 ${postDetail.countLike }개</label> <br>
+	        	</div>
+	        	
+		        
+		        	
+		        	
+		        	
+		        
 	
 	            <div class="mt-4">
 	            	<div>
@@ -70,12 +86,14 @@
 		            <p>${postDetail.post.content}</p>
 		            </div>
 	        	</div>
-	
+				
+				<c:forEach var="comment" items="${postDetail.commentList }">
 		        <div>
-		            <label class="font-weight-bold">친구친구</label>
-		            <label class="ml-1">부럽당</label>
+		            <label class="font-weight-bold"></label>
+		            <label class="ml-1">${comment.comment }</label>
 		        </div>
-	
+				</c:forEach>
+				
 	            <div>
 	              <div class="font-weight-bold">덧글입력</div>
 	              <div class="input-group mt-2">
@@ -154,7 +172,7 @@
   		
   		
   		// 빈 하트를 누르면 꽉찬 하트로 바꾸기
-  		$(".blank-heart").on("click", function(e) {
+  		$(".like-btn").on("click", function(e) {
   			e.preventDefault();
   			
   			let postId = $(this).data("post-id");

@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.amita.mygramSNS.ex.common.FileManagerService;
+import com.amita.mygramSNS.ex.post.comment.bo.CommentBO;
+import com.amita.mygramSNS.ex.post.comment.model.Comment;
 import com.amita.mygramSNS.ex.post.dao.PostDAO;
+import com.amita.mygramSNS.ex.post.like.bo.LikeBO;
 import com.amita.mygramSNS.ex.post.model.Post;
 import com.amita.mygramSNS.ex.post.model.PostDetail;
 import com.amita.mygramSNS.ex.user.bo.UserBO;
@@ -23,6 +26,13 @@ public class PostBO {
 	@Autowired
 	private UserBO userBO;
 	
+	@Autowired
+	private LikeBO likeBO;
+	
+	@Autowired
+	private CommentBO commentBO;
+	
+	
 	public int addPost(int userId, String content, MultipartFile file) {
 		
 		String imagePath = null;
@@ -36,7 +46,7 @@ public class PostBO {
 		return postDAO.insertPost(userId, content, imagePath);
 	}
 	
-	public List<PostDetail> getPostList(){
+	public List<PostDetail> getPostList(int loginUserId){
 		
 		// 게시글 하나당 작성자 정보를 조합하는 과정
 		List<Post> postList = postDAO.selectPostList();
@@ -48,23 +58,26 @@ public class PostBO {
 			int userId = post.getUserId();
 			User user = userBO.getUserById(userId);
 			
+			int likeCount = likeBO.countLike(post.getId());
+			boolean isLike = likeBO.isLike(loginUserId, post.getId());
+			
+			
+			List<Comment> commentList = commentBO.getCommentList(post.getId());
+			
 			PostDetail postDetail = new PostDetail();
+			
 			postDetail.setPost(post);
 			postDetail.setUser(user);
-			
+			postDetail.setCountLike(likeCount);
+			postDetail.setLike(isLike);
+			postDetail.setCommentList(commentList);
 			postDetailList.add(postDetail);
 		}
 		
 		return postDetailList;
 	}
 	
-	public int checkLike(int userId, int postId) {
-		
-		return postDAO.insertLike(userId, postId);
-	}
-
-	public int uncheckLike(int userId, int postId) {
-		return postDAO.deleteLike(userId, postId);
-	}
+	
+	
 	
 }
