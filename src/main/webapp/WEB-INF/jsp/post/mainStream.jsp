@@ -49,17 +49,32 @@
 	     		<div class="border rounded p-2 mt-1">
 	        	<div class="mt-1">
 	        		<div class="d-flex justify-content-between">
-		        		<div>
-			        		<a href="#" class="bookmark-checked" data-post-id="${postDetail.post.id }"><i class="d-none bi bi-bookmark-star-fill "></i></a>
-			        		<a href="#" class="bookmark-blank" data-post-id="${postDetail.post.id }"><i class="bi bi-bookmark-star"></i></a>
-			        		<label>북마크</label>
-		        		</div>
+	        			<c:choose> 
+	        				<%-- 로그인한 사용자가 북마크한 게시물 --%>
+	        				<c:when test="${postDetail.bookmark }"> 
+	        					<div>
+	        						<a href="#" class="bookmark-checked" data-post-id="${postDetail.post.id }"><i class="bi bi-bookmark-star-fill "></i></a>
+	        						<label>북마크</label>
+	        					</div>
+	        				</c:when>
+	        			
+	        				<c:otherwise>
+	        					<div>
+			        				<a href="#" class="bookmark-blank" data-post-id="${postDetail.post.id }"><i class="bi bi-bookmark-star"></i></a>
+			        				<label>북마크</label>
+		        				</div>
+	        				</c:otherwise>
+	        			
+	        			</c:choose>
+	        			
+		        		
 		        		<div>
 		        			<c:if test="${userId eq postDetail.user.id }">
 		        				<a href="#" data-post-id="${postDetail.post.id }" class="more-btn" data-toggle="modal" data-target="#moreModal"><i class="bi bi-three-dots"></i></a>
 		        			</c:if>
 		        		</div>
 	        		</div>
+	        		
 	        	</div>
 	        	<div>
 	          		<img class="w-100" src="${postDetail.post.imagePath }">
@@ -298,8 +313,6 @@
 			
 			let postId = $(this).data("post-id");
   			
-  			$(".bookmark-blank").addClass("d-none");
-  			$(".bookmark-checked").removeClass("d-none");
   			
   			
   			$.ajax({
@@ -324,13 +337,33 @@
 
   		});
   		
-  		// 체크된 북마크 아이콘을 누르면 빈 북마크 아이콘으로 바꾸기
-		$(".bookmark-checked").on("click", function() {
+  		$(".bookmark-checked").on("click", function(e) {
+  			e.preventDefault();
   			
-  			$(".bookmark-checked").addClass("d-none");
-  			$(".bookmark-blank").removeClass("d-none");
-
+  			let postId = $(this).data("post-id");
+  			
+  			$.ajax({
+  				type:"get"
+  				, url:"/post/bookmark/delete"
+  				, data:{"postId":postId}
+  				, success:function(data) {
+  					
+  					if(data.result == "success"){
+  						location.reload();
+  					} else {
+  						alert("북마크 해제 실패");
+  					}
+  					
+  				}
+  				, error:function() {
+  					alert("북마크 해제 에러");
+  				}
+  				
+  			});
+  			
   		});
+  		
+  		
   		
   		
   	});

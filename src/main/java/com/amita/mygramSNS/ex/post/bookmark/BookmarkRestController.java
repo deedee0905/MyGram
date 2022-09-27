@@ -21,6 +21,8 @@ public class BookmarkRestController {
 	@Autowired
 	private BookmarkBO bookmarkBO;
 	
+	
+	// 북마크 insert
 	@GetMapping("/bookmark/insert")
 	public Map<String, String> addBookmark(
 			HttpServletRequest request
@@ -42,5 +44,30 @@ public class BookmarkRestController {
 		
 		return result;
 	}
+	
+	
+	// 북마크 delete
+	@GetMapping("/bookmark/delete")
+	public Map<String, String> deleteBookmark(
+			HttpServletRequest request
+			, @RequestParam("postId") int postId
+			){
+		
+		HttpSession session = request.getSession();
+		int userId = (Integer)session.getAttribute("userId");
+		
+		int count = bookmarkBO.uncheckBookmark(userId, postId);
+		
+		Map<String, String> result = new HashMap<>();
+		
+		if(count == 1) {
+			result.put("result", "success");
+		} else {
+			result.put("result", "fail");
+		}
+		
+		return result;
+	}
+	
 
 }

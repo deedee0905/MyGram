@@ -22,6 +22,27 @@
 		)
 	
 	</insert>
+	
+	<select id="selectCheckBookmarkByUserId" parameterType="map" resultType="int">
+		SELECT
+			count(1)
+		FROM
+			`bookmark`
+		WHERE
+			`userId` = #{userId}
+			AND `postId` = #{postId}
+		
+	
+	</select>
+	
+	<delete id="deleteBookmark" parameterType="map">
+		DELETE FROM
+			`bookmark`
+		WHERE
+			`userId` = #{userId}
+			AND `postId` = #{postId}
+	
+	</delete>
 
 
 </mapper>

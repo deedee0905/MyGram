@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.amita.mygramSNS.ex.common.FileManagerService;
+import com.amita.mygramSNS.ex.post.bookmark.bo.BookmarkBO;
 import com.amita.mygramSNS.ex.post.comment.bo.CommentBO;
 import com.amita.mygramSNS.ex.post.comment.model.CommentDetail;
 import com.amita.mygramSNS.ex.post.dao.PostDAO;
@@ -31,6 +32,9 @@ public class PostBO {
 	
 	@Autowired
 	private CommentBO commentBO;
+	
+	@Autowired
+	private BookmarkBO bookmarkBO;
 	
 	
 	public int addPost(int userId, String content, MultipartFile file) {
@@ -64,6 +68,8 @@ public class PostBO {
 			
 			List<CommentDetail> commentList = commentBO.getCommentList(post.getId());
 			
+			boolean isBookmark = bookmarkBO.isBookmark(loginUserId, post.getId());
+			
 			PostDetail postDetail = new PostDetail();
 			
 			postDetail.setPost(post);
@@ -71,6 +77,7 @@ public class PostBO {
 			postDetail.setLikeCount(likeCount);
 			postDetail.setLike(isLike);
 			postDetail.setCommentList(commentList);
+			postDetail.setBookmark(isBookmark);
 			
 			postDetailList.add(postDetail);
 		}

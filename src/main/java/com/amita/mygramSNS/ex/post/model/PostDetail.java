@@ -13,7 +13,16 @@ public class PostDetail {
 	private int likeCount;
 	private boolean isLike;
 	private List<CommentDetail> commentList;
+	private boolean isBookmark;
 	
+	public boolean isBookmark() {
+		return isBookmark;
+	}
+
+	public void setBookmark(boolean isBookmark) {
+		this.isBookmark = isBookmark;
+	}
+
 	public boolean isLike() {
 		return isLike;
 	}
