@@ -50,8 +50,8 @@
 	        	<div class="mt-1">
 	        		<div class="d-flex justify-content-between">
 		        		<div>
-			        		<a href="#"><i id="bookmark-checked" class="d-none bi bi-bookmark-star-fill"></i></a>
-			        		<a href="#"><i id="bookmark-blank" class="bi bi-bookmark-star"></i></a>
+			        		<a href="#" class="bookmark-checked" data-post-id="${postDetail.post.id }"><i class="d-none bi bi-bookmark-star-fill "></i></a>
+			        		<a href="#" class="bookmark-blank" data-post-id="${postDetail.post.id }"><i class="bi bi-bookmark-star"></i></a>
 			        		<label>북마크</label>
 		        		</div>
 		        		<div>
@@ -293,18 +293,42 @@
   	
   	
   		// 빈 북마크 아이콘을 누르면 체크된 북마크 아이콘으로 바꾸기
-		$("#bookmark-blank").on("click", function() {
+		$(".bookmark-blank").on("click", function(e) {
+			e.preventDefault();
+			
+			let postId = $(this).data("post-id");
   			
-  			$("#bookmark-blank").addClass("d-none");
-  			$("#bookmark-checked").removeClass("d-none");
+  			$(".bookmark-blank").addClass("d-none");
+  			$(".bookmark-checked").removeClass("d-none");
+  			
+  			
+  			$.ajax({
+  				type:"get"
+  				, url: "/post/bookmark/insert"
+  				, data:{"postId":postId}
+  				, success:function(data) {
+  					
+  					if(data.result == "success"){
+  						location.reload();
+  					} else {
+  						alert("북마크 실패");
+  					}
+  					
+  				}
+  				, error:function() {
+  					alert("북마크 에러");
+  				}
+  				
+  				
+  			});
 
   		});
   		
   		// 체크된 북마크 아이콘을 누르면 빈 북마크 아이콘으로 바꾸기
-		$("#bookmark-checked").on("click", function() {
+		$(".bookmark-checked").on("click", function() {
   			
-  			$("#bookmark-checked").addClass("d-none");
-  			$("#bookmark-blank").removeClass("d-none");
+  			$(".bookmark-checked").addClass("d-none");
+  			$(".bookmark-blank").removeClass("d-none");
 
   		});
   		

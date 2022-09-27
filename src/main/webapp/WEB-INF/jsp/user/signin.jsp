@@ -38,11 +38,11 @@
  
 
 	    <div class="mt-5 d-flex justify-content-center">
-	
+			<%-- 
 	      <div class="box1 mr-3 ">
 	      	<img width=200 height=350 src="https://cdn.pixabay.com/photo/2016/02/07/14/45/smartphone-1184883_960_720.png">
 	      </div>
-	
+		--%>
 	      <div class="d-flex">
 	
 	        <div class="box2 border border-primary rounded p-2">
