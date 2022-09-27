@@ -42,7 +42,29 @@
 			`id` DESC
 	</select>
 	
+	<delete id="deletePost" parameterType="int">
+		DELETE FROM
+			`post`
+		WHERE
+			`id` = #{postId}
+			
 	
+	</delete>
+	
+	<select id="selectPostByInAndUserId" parameterType="map" resultType="com.amita.mygramSNS.ex.post.model.Post">
+		SELECT
+			`id`
+			,`userId`
+			,`content`
+			,`imagePath`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`post`
+		WHERE
+			`id` = #{id}
+			And `userId` = #{userId}
+	</select>
 	
 
 </mapper>

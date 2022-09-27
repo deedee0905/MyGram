@@ -55,7 +55,9 @@
 			        		<label>북마크</label>
 		        		</div>
 		        		<div>
-		        			<a href="#" data-toggle="modal" data-target="#moreModal"><i class="bi bi-three-dots"></i></a>
+		        			<c:if test="${userId eq postDetail.user.id }">
+		        				<a href="#" data-post-id="${postDetail.post.id }" class="more-btn" data-toggle="modal" data-target="#moreModal"><i class="bi bi-three-dots"></i></a>
+		        			</c:if>
 		        		</div>
 	        		</div>
 	        	</div>
@@ -65,26 +67,23 @@
 	        	
 	        	
 	        	<div class="mt-1 like">
-		        	<c:choose> 
-		        		<%-- 로그인한 사용자 좋아요한 게시물 --%>
-		        		<c:when test="${postDetail.like }">
-		        			<i class=" bi bi-suit-heart-fill text-danger fill-heart"></i>
-		        		</c:when>
-		        		
-		        		<%-- 로그인한 사용자가 좋아요를 하지 않은 게시물 --%>
-		        		<c:otherwise>
-		        			<a href="#" class="like-btn" data-post-id="${postDetail.post.id}"><span><i class="bi bi-suit-heart text-danger" ></i></span></a>
-		        		</c:otherwise>
-		        	</c:choose>
-		        	<label>좋아요 ${postDetail.countLike }개</label> <br>
+	        	
+	        		<c:choose>
+	        			<%--로그인한 사용자가 좋아요 한 게시물 --%>
+	        			<c:when test="${postDetail.like }">
+	        				<a href="#" class="unlike-btn" data-post-id="${postDetail.post.id }"><span><i class="bi bi-heart-fill text-danger"></i></span></a>
+	        			</c:when>
+	        			
+	        			<%--로그인한 사용자가 좋아요를 하지 않은 게시물 --%>
+	        			<c:otherwise>
+	        				<a href="#" class="like-btn" data-post-id="${postDetail.post.id}"><i class="bi bi-suit-heart text-danger" ></i></a>
+	        			</c:otherwise>
+	        			
+	        		</c:choose>
+	 				좋아요 ${postDetail.likeCount }개
+		        	
 	        	</div>
 	        	
-		        
-		        	
-		        	
-		        	
-		        
-	
 	            <div class="mt-4">
 	            	<div>
 	            		<label class="font-weight-bold">${postDetail.user.loginId }</label> 
@@ -141,7 +140,7 @@
     <div class="modal-content">
  
       <div class="modal-body text-center">
-        삭제하기
+        <a href="#" id="deleteBtn">삭제하기</a>
       </div>
       
     </div>
@@ -168,6 +167,42 @@
   
   <script>
   	$(document).ready(function() {
+  		
+  		$("#deleteBtn").on("click", function(e) {
+  			e.preventDefault();
+  			let postId = $(this).data("post-id");
+  			alert(postId);
+  			
+  			$.ajax({
+  				type:"get"
+  				, url:"/post/delete"
+  				, data: {"postId":postId}
+  				, success: function(data){
+  					if(data.result == "success"){
+  						location.reload();
+  					} else {
+  						alert("삭제 실패");
+  					}
+  				}
+  				, error: function(){
+  					alert("삭제 에러");
+  				}
+  				
+  			});
+  			
+  		});
+  		
+  		$(".more-btn").on("click", function(e) {
+  			e.preventDefault();
+  			// 모달의 삭제하기 a 태그에 data-post-id 속성에
+  			// 현재 more-btn이 포함된 postId를 저장한다. 
+  			let postId = $(this).data("post-id");
+  			
+  			
+  			$("#deleteBtn").data("post-id", postId);
+  			
+  		});
+  		
   		
   		// 덧글 입력
   		$(".comment-btn").on("click", function(e) {
@@ -196,12 +231,41 @@
   			
   		});
   		
+  		$(".unlike-btn").on("click", function(e) {
+  			e.preventDefault();
+  			
+  			let postId = $(this).data("post-id");
+  			
+  			$.ajax({
+  				type:"get"
+  				, url:"/post/like/delete"
+  				, data:{"postId":postId}
+  				, success:function(data) {
+  					
+  					if(data.result == "success"){
+  						location.reload();
+  					} else {
+  						alert("좋아요 취소 실패");
+  					}
+  					
+  				}
+  				, error:function() {
+  					alert("좋아요 취소 에러");
+  				}
+  				
+  			});
+  			
+  		});
+  		
+  		
+  		
   		
   		// 빈 하트를 누르면 꽉찬 하트로 바꾸기
   		$(".like-btn").on("click", function(e) {
   			e.preventDefault();
   			
   			let postId = $(this).data("post-id");
+  			
   			
   			$.ajax({
   				type:"get"
@@ -224,33 +288,7 @@
 
   		});
   		
-  		// 꽉찬 하트를 누르면 빈 하트로 바꾸기
-		$(".fill-heart").on("click", function(e) {
-  			e.preventDefualt();
-  			
-  			let postId = $(this).data("post-id");
-			
-  			$.ajax({
-  				type:"get"
-  				, url:"/post/like/delete"
-  				, data: {"postId":postId}
-  				, success: function(data){
-  					
-  					if(data.result == "success"){
-  						location.reload();
-  					} else {
-  						alert("좋아요 해제 실패");
-  					}
-  					
-  				}
-  				, error: function(){
-  					alert("좋아요 해제 에러");
-  				}
-  			});
-  			
-  			
-
-  		});
+  		
   		
   	
   	

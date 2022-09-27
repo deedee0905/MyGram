@@ -33,7 +33,7 @@ public class LikeRestController {
 			
 			Map<String, String> map = new HashMap<>();
 			
-			int count = likeBO.checkLike(postId, userId);
+			int count = likeBO.checkLike(userId, postId);
 			
 			if(count == 1) {
 				map.put("result", "success");
@@ -64,5 +64,9 @@ public class LikeRestController {
 					
 			return map;
 		}
+		
+	
+		
+		
 
 }

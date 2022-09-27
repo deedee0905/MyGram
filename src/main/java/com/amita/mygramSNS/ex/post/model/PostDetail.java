@@ -10,7 +10,7 @@ public class PostDetail {
 	
 	private Post post;
 	private User user;
-	private int countLike;
+	private int likeCount;
 	private boolean isLike;
 	private List<CommentDetail> commentList;
 	
@@ -40,12 +40,14 @@ public class PostDetail {
 	public User getUser() {
 		return user;
 	}
-	public int getCountLike() {
-		return countLike;
+
+
+	public int getLikeCount() {
+		return likeCount;
 	}
 
-	public void setCountLike(int countLike) {
-		this.countLike = countLike;
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
 	}
 
 	public void setUser(User user) {

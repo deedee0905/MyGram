@@ -21,7 +21,7 @@ public class LikeBO {
 	}
 	
 	// 게시글별 좋아요 개수를 얻는 기능
-	public int countLike(int postId) {
+	public int likeCount(int postId) {
 		return likeDAO.selectCountLike(postId);
 		
 	}
@@ -36,5 +36,11 @@ public class LikeBO {
 			return true;
 		}
 	}
+	
+	public int deleteLikeByPostId(int postId) {
+		return likeDAO.deleteLikeByPostId(postId);
+	}
+
+	
 
 }

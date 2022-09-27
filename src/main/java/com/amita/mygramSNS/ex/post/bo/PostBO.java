@@ -58,7 +58,7 @@ public class PostBO {
 			int userId = post.getUserId();
 			User user = userBO.getUserById(userId);
 			
-			int likeCount = likeBO.countLike(post.getId());
+			int likeCount = likeBO.likeCount(post.getId());
 			boolean isLike = likeBO.isLike(loginUserId, post.getId());
 			
 			
@@ -68,7 +68,7 @@ public class PostBO {
 			
 			postDetail.setPost(post);
 			postDetail.setUser(user);
-			postDetail.setCountLike(likeCount);
+			postDetail.setLikeCount(likeCount);
 			postDetail.setLike(isLike);
 			postDetail.setCommentList(commentList);
 			
@@ -79,6 +79,28 @@ public class PostBO {
 	}
 	
 	
+	public int deletePost(int postId, int userId) {
+		
+		Post post = postDAO.selectPostByInAndUserId(postId, userId);
+		
+		if(post == null) {
+			return 0;
+		}
+		
+		
+		// 게시글과 연결된 파일 삭제
+		FileManagerService.removeFile(post.getImagePath());
+		
+		// 좋아요 삭제
+		likeBO.deleteLikeByPostId(postId);
+		// 댓글 삭제
+		commentBO.deleteComment(postId);
+		
+		
+		
+		return postDAO.deletePost(postId);
+				
+	}
 	
 	
 }
